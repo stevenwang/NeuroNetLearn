@@ -17,7 +17,7 @@ Code was run using python 3.8.5
 * `simu_net.py`: simulate multi-experiment point process data where the settings of networks are generated using `genSetting.py`
 
 ## Example
-* `demo_net_est.html`: examples of estimating multi/single-experiment point process network(s) using `net_est` function in `net_est_auto.py`
-* `demo_net_inf.html`: examples of statistical inference over multi/single-experiment point process network(s) using `net_inf` function in `net_inf.py`
+* `examples/demo_net_est.html`: examples of estimating multi/single-experiment point process network(s) using `net_est` function in `net_est_auto.py`
+* `examples/demo_net_inf.html`: examples of statistical inference over multi/single-experiment point process network(s) using `net_inf` function in `net_inf.py`
 
 
