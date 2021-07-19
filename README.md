@@ -9,7 +9,7 @@ Xu Wang and Ali Shojaie. "Joint Estimation and Inference for Multi-ExperimentNet
 Code was run using python 3.8.5
 
 ## Primary files and Example:
-* `net_est.py`: joint estimation for multi-experiment networks; see 'demo_net_est.html' for examples of usage
-* `net_inf.py`: high-dimensional statistical inference for point process network; see 'demo_net_inf.html' for examples of usage
+* `net_est.py`: joint estimation for multi-experiment networks; see `demo_net_est.html` for examples of usage
+* `net_inf.py`: high-dimensional statistical inference for point process network; see `demo_net_inf.html` for examples of usage
 
 
