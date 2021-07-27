@@ -2,7 +2,7 @@
 
 Xu Wang, Mladen Kolar and Ali Shojaie. "Statistical Inference for Networks of High-Dimensional Point Processes." https://arxiv.org/abs/2007.07448
 
-Xu Wang and Ali Shojaie. "Joint Estimation and Inference for Multi-ExperimentNetworks of High-Dimensional Point Processes." https://arxiv.org/abs/XXXXX
+Xu Wang and Ali Shojaie. "Joint Estimation and Inference for Multi-ExperimentNetworks of High-Dimensional Point Processes." [forthcoming]
 
 
 ## Installation:
