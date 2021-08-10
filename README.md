@@ -6,13 +6,14 @@ Xu Wang and Ali Shojaie. "Joint Estimation and Inference for Multi-ExperimentNet
 
 
 ## Installation:
-Require install `scipy`, `numpy`, `math`, `numba`
+Require install `scipy`, `numpy`, `math`, `numba`, 'igraph'
 
 Code was run using python 3.8.5
 
 ## Primary files:
 * `net_est_auto.py`: joint estimation for multi-experiment networks where tuning parameters are automatically chosen based on eBIC (via `getBIC.py`)
 * `net_inf.py`: high-dimensional statistical inference for point process network
+* `net_inf_threshold.py`: fast version of 'net_inf' by first identifying sub-graphs and then applying 'net_inf' to each sub-graph
 * `spg_genlasso_solver_jit.py`: generalized lasso solver using smoothing proximal gradient descent algorithm
 * `simu_net.py`: simulate multi-experiment point process data where the settings of networks are generated using `genSetting.py`
 
