@@ -6,7 +6,7 @@ Xu Wang and Ali Shojaie. "Joint Estimation and Inference for Multi-ExperimentNet
 
 
 ## Installation:
-Require install `scipy`, `numpy`, `math`, `numba`, 'igraph'
+Require install `scipy`, `numpy`, `math`, `numba`, `igraph`
 
 Code was run using python 3.8.5
 
