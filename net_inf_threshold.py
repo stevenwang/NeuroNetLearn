@@ -1,29 +1,57 @@
 # fast network learn using thresholding method
 
-#  helper functions 
-import numpy as np
+#  helper function 
+import numpy as np 
 from net_est_auto import getCrossCov
 from net_inf import net_inf
 from scipy.sparse.csgraph import connected_components
 
-def getConnectedComponents( Y  , lag = 1 ,alpha =0.2):
-    CC = [ ]
-    NCC = [ ]
-    for i in range(len(Y)):
-        mat = getCrossCov( Y[i], lag )  
-        mat[ abs(mat) < alpha ] = 0
-        mat = 1.0*(mat!= 0)
-        ncc, cc = connected_components( mat )
-        NCC.append(ncc)
-        CC.append(cc)
+# hybrid thresholding based on cross-covariance matrices
+
+def getConnectedComponentsHybrid( Y  , lag = 1 ,lambda1 =0.2, lambda2=0):
+    # ref: Exact Hybrid Covariance Thresholding for Joint Graphical Lasso, Tang et al 2015
+    # https://link.springer.com/chapter/10.1007/978-3-319-23525-7_36
+    # lag: time-lag in calculating the cross-covariance matrix using time-series/point process data
+    # lambda1: threshold for class-specific thresholds 
+    # lambda2: global thresholding, default is 0, meaning class-specific thresholding only
     
-    return NCC, CC
+    M = len(Y)
+    p = Y[0].shape[1]  
+    Cov = np.zeros( ( M , p,p) )
+    for i in range(M):
+        Cov[i] = getCrossCov( Y[i], lag )  
+    
+    # hybrid thresholding 
+    Edges = np.ones( (M, p,p) )
+    
+    # class-specific thresholding
+    Edges[ abs(Cov) < lambda1 ] = 0
+
+    # global thresholding   
+    global_thresh =  np.sum( (Cov - lambda1 )**2 , 0 ) < lambda2
+    for m in range(M):
+        Edges[m][ global_thresh ] = 0
+    
+    # union of all connected parts across networks 
+    Edges_Union = np.sum( Edges, axis=0 )
+    ncc, cc = connected_components( Edges_Union )
+    
+    
+    return ncc, cc
 
 
+# fast network inference by identifying sub-graphs first
+# the sub-graphs are identified using cross-covariance hybrid-thresholding
+# the sub-graphs are then "merged" across experiments 
+# so that we apply joint estimation to get connectivity estimates
+# 
 
 def net_inf_threshold( Y,  # required input of data, dictionary type, each is a Tm x P matrix
                       X= None , # integrated process/customized design matrix; 
-                      lag = 1 # time lag when calculating the cross-covariance matrix 
+                      lag = 1 ,# time lag when calculating the cross-covariance matrix 
+                      lambda1 = 0.2, # threshold for class-specific thresholds 
+                      lambda2 = 0 , # global thresholding, default 0 
+                      msg = False # track progress of sub-graph learning
                      ):
     M = len(Y)
     P = Y[0].shape[1]
@@ -34,31 +62,34 @@ def net_inf_threshold( Y,  # required input of data, dictionary type, each is a 
     UCI = np.empty( (M, P,P) ) 
 
     # get connected components 
-    NCC, CC = getConnectedComponents( Y , lag = lag)
+    ncc, cc = getConnectedComponentsHybrid(Y=Y, lag = lag, lambda1 =lambda1, lambda2 = lambda2)
     
-    # learn at each subgraph
-    for m in range( len(Y)):
-        Ym = Y[m]
-        ncc = NCC[m]
-        cc = CC[m]
-       
-        for k in range(ncc):
-            idx = np.where( cc ==k)
-            idx = idx[0]
+    for k in range(ncc):
+        if msg:
+            print('start subgraph...', k+1, '...out of total', ncc)
+        idx = np.where( cc ==k)
+        idx = idx[0]
 
-            Xm = None if not X else {0: X[m][ :, np.append(0, idx+1) ] }
- 
-            v,pval, lci, uci = net_inf( Y= {0:Ym[:, idx] } ,
-                                        X = Xm )
-            v=v[0]; pval = pval[0] ; lci = lci[0] ; uci = uci[0]
+        Ysub = dict()
+        for m in range(M):
+            Ysub[m] = Y[m][:, idx] 
+        if X is None:
+            Xsub = None
+        else:
+            Xsub = dict()
+            for m in range(M):
+                Xsub[m] = X[m][ :, np.append(0, idx+1) ]
 
-            for i in range(len(idx)):
-                for j in range(len(idx)):
-                    V[m][idx[i], idx[j]] =  v[i,j]
-                    PVAL[m][idx[i], idx[j]] =  pval[i,j]
-                    LCI[m][idx[i], idx[j]] =  lci[i,j]
-                    UCI[m][idx[i], idx[j]] =  uci[i,j]
-                    
-        
+        v,pval, lci, uci = net_inf( Y= Ysub ,  X = Xsub )
+
+        for i in range(len(idx)):
+            for j in range(len(idx)):
+                for m in range(M):
+                    V[m][idx[i], idx[j]] =  v[m][i,j]
+                    PVAL[m][idx[i], idx[j]] =  pval[m][i,j]
+                    LCI[m][idx[i], idx[j]] =  lci[m][i,j]
+                    UCI[m][idx[i], idx[j]] =  uci[m][i,j]
+
+
     return V, PVAL, LCI, UCI 
 
