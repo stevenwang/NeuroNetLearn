@@ -56,10 +56,10 @@ def net_inf_threshold( Y,  # required input of data, dictionary type, each is a 
     M = len(Y)
     P = Y[0].shape[1]
     
-    V   = np.empty( (M, P,P) )
+    V   = np.zeros( (M, P,P) )
     PVAL = np.ones( (M, P,P) )
-    LCI = np.empty( (M, P,P) )
-    UCI = np.empty( (M, P,P) ) 
+    LCI = np.zeros( (M, P,P) )
+    UCI = np.zeros( (M, P,P) ) 
 
     # get connected components 
     ncc, cc = getConnectedComponentsHybrid(Y=Y, lag = lag, lambda1 =lambda1, lambda2 = lambda2)
