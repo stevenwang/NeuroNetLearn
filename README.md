@@ -19,6 +19,8 @@ Code was run using python 3.8.5
 * `ht.py`: multi-experiment hierarchical testing controlling FWER
 
 ## Example
+We recommend starting with one of the following examples which demonstrate various features of the package.
+
 * `examples/demo_network_estimation.ipynb`: examples of estimating multi/single-experiment point process network(s) using `net_est` function in `net_est_auto.py`
 * `examples/demo_network_inference.ipynb`: examples of statistical inference over multi/single-experiment point process network(s) using `net_inf` function in `net_inf.py`
 
