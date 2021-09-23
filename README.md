@@ -16,7 +16,7 @@ Code was run using python 3.8.5
 * `net_inf_threshold.py`: fast version of 'net_inf' by first identifying sub-graphs and then applying 'net_inf' to each sub-graph
 * `spg_genlasso_solver_jit.py`: generalized lasso solver using smoothing proximal gradient descent algorithm
 * `simu_net.py`: simulate multi-experiment point process data where the settings of networks are generated using `genSetting.py`
-* `HT.py`: hierarchical testing procedure controlling FWER
+* `ht.py`: multi-experiment hierarchical testing controlling FWER
 
 ## Example
 * `examples/demo_network_estimation.ipynb`: examples of estimating multi/single-experiment point process network(s) using `net_est` function in `net_est_auto.py`
