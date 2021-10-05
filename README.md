@@ -18,7 +18,7 @@ For more details, please see the accompanying manuscripts: ["Statistical Inferen
 
 ## Installation:
 
-You can install a stable release of `neuronetlearn` using `pip3` by running `python pip3 install neuronetlearn` from a Terminal window. 
+You can install a stable release of [`neuronetlearn`](https://pypi.org/project/neuronetlearn/) using `pip3` by running `python pip3 install neuronetlearn` from a Terminal window. 
 
 Dependencies include `scipy`, `numpy`, `math`, `numba`, `igraph`, `sklearn`
 
