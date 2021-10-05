@@ -1,12 +1,27 @@
 # Multi-Experiment Network Estimation and Inference for High-Dimensional Point Process Data
 
-Xu Wang, Mladen Kolar and Ali Shojaie. ["Statistical Inference for Networks of High-Dimensional Point Processes."](https://arxiv.org/abs/2007.07448)
+[![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
-Xu Wang and Ali Shojaie. ["Joint Estimation and Inference for Multi-ExperimentNetworks of High-Dimensional Point Processes."](https://arxiv.org/abs/2109.11634)
+[cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
+[cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+
+**Python package:** https://github.com/stevenwang/NeuroNetLearn/
+
+
+Modern high-dimensional point process data, especially those from neuroscience experiments, often involve observations from multiple conditions and/or experiments. Networks of interactions corresponding to these conditions are expected to share many edges, but also exhibit unique, condition-specific ones. However, the degree of similarity among the networks from different conditions is generally unknown. Existing approaches for multivariate point processes do not take these structures into account and do not provide inference for jointly estimated networks. To address these needs, we develop the `neuronetlearn` package that includes estimation and inference tools for networks of high-dimensional Hawkes processes over multiple experiments. Specifically, `neuronetlearn` includes functions that implement a joint estimation procedure for networks of high-dimensional point processes that incorporates easy-to-compute weights in order to data-adaptively encourage similarity between the estimated networks. It also includes functions that implement a powerful hierarchical multiple testing procedure for edges of all estimated networks, which takes into account the data-driven similarity structure of the multi-experiment networks. 
+
+For more details, please see the accompanying manuscripts: ["Statistical Inference for Networks of High-Dimensional Point Processes."](https://arxiv.org/abs/2007.07448) by Xu Wang, Mladen Kolar and Ali Shojaie, and ["Joint Estimation and Inference for Multi-ExperimentNetworks of High-Dimensional Point Processes."](https://arxiv.org/abs/2109.11634) by Xu Wang and Ali Shojaie. 
 
 
 ## Installation:
-Require install `scipy`, `numpy`, `math`, `numba`, `igraph`
+
+You can install a stable release of `neuronetlearn` using `pip3` by running `python pip3 install neuronetlearn` from a Terminal window. 
+
+Dependencies include `scipy`, `numpy`, `math`, `numba`, `igraph`, `sklearn`
 
 Code was run using python 3.8.5
 
@@ -19,7 +34,7 @@ Code was run using python 3.8.5
 * `ht.py`: multi-experiment hierarchical testing controlling FWER
 
 ## Example
-We recommend starting with one of the following examples which demonstrate various features of the package.
+We recommend starting with one of the following examples (hosted at the package github [page](https://github.com/stevenwang/NeuroNetLearn)) which demonstrate various features of the package.
 
 * `examples/demo_network_estimation.ipynb`: examples of estimating multi/single-experiment point process network(s) using `net_est` function in `net_est_auto.py`
 * `examples/demo_network_inference.ipynb`: examples of statistical inference over multi/single-experiment point process network(s) using `net_inf` function in `net_inf.py`
